@@ -65,13 +65,17 @@ if ($_POST) {
     if ($c >= 3) {
         $colorAlert = 'alert-success';
         $message = '<strong>Felicitaciones,</strong> preguntas correctas ' . $c;
-        session_start();
-        $_SESSION['nivel']=$_SESSION['nivel']+1;
 
+        if ($_SESSION['nivel'] == "2") {
+            $_SESSION['nivel'] = $_SESSION['nivel'] + 1;
             $sql = "UPDATE usuarios SET  nivel = (select nivel from usuarios WHERE id = :id )+1  WHERE id = :id";
             $stmt = $conexion->prepare($sql);
             $stmt->bindParam(':id', $_SESSION['user_id']);
             $stmt->execute();
+        } else {
+            $colorAlert = 'alert-success';
+            $message = '<strong>Atención:</strong> ¡Ya tienes nivel 3 o posterior!';
+        }
     } else {
         $colorAlert = 'alert-danger';
         $message = '<strong>Falllaste,</strong> preguntas incorrectas ' . $i;
@@ -97,25 +101,25 @@ if ($_POST) {
             <p>1. Selecciona la palabra correcta que representa la imagen: </p>
             <ol type="a">
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p1" value="a">
+                    <input class="form-check-input ms-2" type="radio" name="p1" value="a" required>
                     <label class="form-check-label ms-2" for="p1">
                         Buenos días
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p1" value="b">
+                    <input class="form-check-input ms-2" type="radio" name="p1" value="b" required>
                     <label class="form-check-label ms-2" for="p1">
                         Buenas noches
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p1" value="c">
+                    <input class="form-check-input ms-2" type="radio" name="p1" value="c" required>
                     <label class="form-check-label ms-2" for="p1">
                         Adíos
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p1" value="d">
+                    <input class="form-check-input ms-2" type="radio" name="p1" value="d" required>
                     <label class="form-check-label ms-2" for="p1">
                         Gracias
                     </label>
@@ -131,25 +135,25 @@ if ($_POST) {
             <p>2. Selecciona la palabra correcta que representa la imagen: </p>
             <ol type="a">
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p2" value="a">
+                    <input class="form-check-input ms-2" type="radio" name="p2" value="a" required>
                     <label class="form-check-label ms-2" for="p2">
                         Buenas tardes
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p2" value="b">
+                    <input class="form-check-input ms-2" type="radio" name="p2" value="b" required>
                     <label class="form-check-label ms-2" for="p2">
                         Con gusto
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p2" value="c">
+                    <input class="form-check-input ms-2" type="radio" name="p2" value="c" required>
                     <label class="form-check-label ms-2" for="p2">
                         Hola
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p2" value="d">
+                    <input class="form-check-input ms-2" type="radio" name="p2" value="d" required>
                     <label class="form-check-label ms-2" for="p2">
                         Bienvenido
                     </label>
@@ -165,25 +169,25 @@ if ($_POST) {
             <p>3. Selecciona la palabra correcta que representa la imagen: </p>
             <ol type="a">
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p3" value="a">
+                    <input class="form-check-input ms-2" type="radio" name="p3" value="a" required>
                     <label class="form-check-label ms-2" for="p3">
                         Buenas tardes
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p3" value="b">
+                    <input class="form-check-input ms-2" type="radio" name="p3" value="b" required>
                     <label class="form-check-label ms-2" for="p3">
                         Buenas noches
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p3" value="c">
+                    <input class="form-check-input ms-2" type="radio" name="p3" value="c" required>
                     <label class="form-check-label ms-2" for="p3">
                         Gracias
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p3" value="d">
+                    <input class="form-check-input ms-2" type="radio" name="p3" value="d" required>
                     <label class="form-check-label ms-2" for="p3">
                         Cómo estás
                     </label>
@@ -198,25 +202,25 @@ if ($_POST) {
             <p>4. Selecciona la palabra correcta que representa la imagen: </p>
             <ol type="a">
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p4" value="a">
+                    <input class="form-check-input ms-2" type="radio" name="p4" value="a" required>
                     <label class="form-check-label ms-2" for="p4">
                         Gracias
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p4" value="b">
+                    <input class="form-check-input ms-2" type="radio" name="p4" value="b" required>
                     <label class="form-check-label ms-2" for="p4">
                         Con gusto
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p4" value="c">
+                    <input class="form-check-input ms-2" type="radio" name="p4" value="c" required>
                     <label class="form-check-label ms-2" for="p4">
                         Buenas noches
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p4" value="d">
+                    <input class="form-check-input ms-2" type="radio" name="p4" value="d" required>
                     <label class="form-check-label ms-2" for="p4">
                         Buenos días
                     </label>

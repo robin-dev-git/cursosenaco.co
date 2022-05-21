@@ -74,6 +74,17 @@ if ($_POST) {
     if ($c >= 4) {
         $colorAlert = 'alert-success';
         $message = '<strong>Felicitaciones,</strong> preguntas correctas ' . $c;
+
+        if ($_SESSION['nivel'] == "3") {
+            $_SESSION['nivel'] = $_SESSION['nivel'] + 1;
+            $sql = "UPDATE usuarios SET  nivel = (select nivel from usuarios WHERE id = :id )+1  WHERE id = :id";
+            $stmt = $conexion->prepare($sql);
+            $stmt->bindParam(':id', $_SESSION['user_id']);
+            $stmt->execute();
+        } else {
+            $colorAlert = 'alert-success';
+            $message = '<strong>Atención:</strong> ¡Ya tienes nivel 4 o posterior!';
+        }
     } else {
         $colorAlert = 'alert-danger';
         $message = '<strong>Falllaste,</strong> preguntas incorrectas ' . $i;
@@ -99,25 +110,25 @@ if ($_POST) {
             <p>1. Selecciona la palabra correcta que representa la imagen: </p>
             <ol type="a">
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p1" value="a">
+                    <input class="form-check-input ms-2" type="radio" name="p1" value="a" required>
                     <label class="form-check-label ms-2" for="p1">
                         Mamá
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p1" value="b">
+                    <input class="form-check-input ms-2" type="radio" name="p1" value="b" required>
                     <label class="form-check-label ms-2" for="p1">
                         Abuelo (a)
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p1" value="c">
+                    <input class="form-check-input ms-2" type="radio" name="p1" value="c" required>
                     <label class="form-check-label ms-2" for="p1">
                         Papá
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p1" value="d">
+                    <input class="form-check-input ms-2" type="radio" name="p1" value="d" required>
                     <label class="form-check-label ms-2" for="p1">
                         Hijo
                     </label>
@@ -133,25 +144,25 @@ if ($_POST) {
             <p>2. Selecciona la palabra correcta que representa la imagen: </p>
             <ol type="a">
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p2" value="a">
+                    <input class="form-check-input ms-2" type="radio" name="p2" value="a" required>
                     <label class="form-check-label ms-2" for="p2">
                         Mamá
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p2" value="b">
+                    <input class="form-check-input ms-2" type="radio" name="p2" value="b" required>
                     <label class="form-check-label ms-2" for="p2">
                         Abuelo (a)
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p2" value="c">
+                    <input class="form-check-input ms-2" type="radio" name="p2" value="c" required>
                     <label class="form-check-label ms-2" for="p2">
                         hermano (a)
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p2" value="d">
+                    <input class="form-check-input ms-2" type="radio" name="p2" value="d" required>
                     <label class="form-check-label ms-2" for="p2">
                         Tío (a)
                     </label>
@@ -167,25 +178,25 @@ if ($_POST) {
             <p>3. Selecciona la palabra correcta que representa la imagen: </p>
             <ol type="a">
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p3" value="a">
+                    <input class="form-check-input ms-2" type="radio" name="p3" value="a" required>
                     <label class="form-check-label ms-2" for="p3">
                         Tío (a)
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p3" value="b">
+                    <input class="form-check-input ms-2" type="radio" name="p3" value="b" required>
                     <label class="form-check-label ms-2" for="p3">
                         Papá
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p3" value="c">
+                    <input class="form-check-input ms-2" type="radio" name="p3" value="c" required>
                     <label class="form-check-label ms-2" for="p3">
                         Hermano (a)
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p3" value="d">
+                    <input class="form-check-input ms-2" type="radio" name="p3" value="d" required>
                     <label class="form-check-label ms-2" for="p3">
                         Primo (a)
                     </label>
@@ -200,25 +211,25 @@ if ($_POST) {
             <p>4. Selecciona la palabra correcta que representa la imagen: </p>
             <ol type="a">
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p4" value="a">
+                    <input class="form-check-input ms-2" type="radio" name="p4" value="a" required>
                     <label class="form-check-label ms-2" for="p4">
                         Primo (a)
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p4" value="b">
+                    <input class="form-check-input ms-2" type="radio" name="p4" value="b" required>
                     <label class="form-check-label ms-2" for="p4">
                         Novio (a)
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p4" value="c">
+                    <input class="form-check-input ms-2" type="radio" name="p4" value="c" required>
                     <label class="form-check-label ms-2" for="p4">
                         Esposo (a)
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p4" value="d">
+                    <input class="form-check-input ms-2" type="radio" name="p4" value="d" required>
                     <label class="form-check-label ms-2" for="p4">
                         Abuelo (a)
                     </label>
@@ -233,25 +244,25 @@ if ($_POST) {
             <p>5. Selecciona la palabra correcta que representa la imagen: </p>
             <ol type="a">
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p5" value="a">
+                    <input class="form-check-input ms-2" type="radio" name="p5" value="a" required>
                     <label class="form-check-label ms-2" for="p5">
                         Papá
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p5" value="b">
+                    <input class="form-check-input ms-2" type="radio" name="p5" value="b" required>
                     <label class="form-check-label ms-2" for="p5">
                         Hermano (a)
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p5" value="c">
+                    <input class="form-check-input ms-2" type="radio" name="p5" value="c" required>
                     <label class="form-check-label ms-2" for="p5">
                         Novio (a)
                     </label>
                 </li>
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p5" value="d">
+                    <input class="form-check-input ms-2" type="radio" name="p5" value="d" required>
                     <label class="form-check-label ms-2" for="p5">
                         Primo (a)
                     </label>
@@ -259,7 +270,8 @@ if ($_POST) {
             </ol>
         </div>
         <div class="mb-5 pt-3">
-            <input type="submit" value="Verificar" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary" name="nivel" value="4">Verfificar</button>
+            <!-- <input type="submit" value="Verificar" class="btn btn-primary"> -->
         </div>
     </form>
     <hr />

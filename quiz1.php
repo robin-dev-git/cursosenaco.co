@@ -132,16 +132,20 @@ if ($_POST) {
         $colorAlert = 'alert-success';
         $message = '<strong>Felicitaciones,</strong> preguntas correctas ' . $c;
 
-        session_start();
-        $_SESSION['nivel']=$_SESSION['nivel']+1;
-
+        // session_start();
+        if ($_SESSION['nivel'] == "1") {
+            $_SESSION['nivel'] = $_SESSION['nivel'] + 1;
             $sql = "UPDATE usuarios SET  nivel = (select nivel from usuarios WHERE id = :id )+1  WHERE id = :id";
             $stmt = $conexion->prepare($sql);
             $stmt->bindParam(':id', $_SESSION['user_id']);
             $stmt->execute();
+        } else {
+            $colorAlert = 'alert-success';
+            $message = '<strong>Atención:</strong> ¡Ya tienes nivel 2 o posterior!';
+        }
 
 
-      /*  $sql = "select nivel from usuarios WHERE id = :id ";
+        /*  $sql = "select nivel from usuarios WHERE id = :id ";
         $stmt = $conexion->prepare($sql);
         $stmt->bindParam(':nivel', $_POST['nivel']);
        
@@ -285,7 +289,7 @@ if ($_POST) {
             <p>4. Selecciona la palabra correcta que representa la letra: </p>
             <ol type="a">
                 <li>
-                    <input class="form-check-input ms-2" type="radio" name="p4" value="a" >
+                    <input class="form-check-input ms-2" type="radio" name="p4" value="a">
                     <label class="form-check-label ms-2" for="p4">
                         <img src="assets\img\quiz\az_14.jpg" class="rounded" height="120px" alt="...">
                     </label>
