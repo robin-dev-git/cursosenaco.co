@@ -34,6 +34,9 @@ require 'user.php';
 
         </div>
     </div>
+
+    <?php 
+    if (!empty($_SESSION['nivel']) && $_SESSION['nivel'] =='2') { ?>
     <div class="card d-flex justify-content-center w-75 shadow p-3 mb-5 bg-white rounded">
 
         <div class="ratio ratio-16x9">
@@ -42,18 +45,16 @@ require 'user.php';
 
         <div class="card-body">
             <h5 class="card-title">Saludos</h5>
-            <?php if (!empty($user)) : ?>
                 <li class="nav-item d-flex justify-content-end me-3">
                     <a type="button" class="btn btn-primary" href="quiz2.php">Ir a examen</a>
                 </li>
-            <?php else : ?>
-                <li class="nav-item d-flex justify-content-end me-3">
-                    <a type="button" class="btn btn-primary" href="login.php">Ir a examen</a>
-                </li>
-            <?php endif; ?>
-
         </div>
     </div>
+    <?php }else {?>
+        Volver a nivel 1 <br>
+    <?php } ?>
+    <?php if (!empty($_SESSION['nivel']) && $_SESSION['nivel'] =='3')  { ?>
+
     <div class="card d-flex justify-content-center w-75 shadow p-3 mb-5 bg-white rounded">
         <div class="ratio ratio-16x9">
             <iframe width="560" height="315" src="https://www.youtube.com/embed/JmA1I8sIQIw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -72,6 +73,11 @@ require 'user.php';
 
         </div>
     </div>
+    <?php }else {?>
+            vayas volver a examen en nivel 2
+        <?php } ?>
+    
+
 </div>
 
 

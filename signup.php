@@ -8,9 +8,9 @@ $colorAlert = '';
 if (
   !empty($_POST['nombre']) && !empty($_POST['apellido'])
   && !empty($_POST['edad']) && !empty($_POST['email'])
-  && !empty($_POST['password'])
+  && !empty($_POST['password'] && !empty($_POST['nivel']))  
 ) {
-  $sql = "INSERT INTO usuarios (nombre,apellido,edad,email, password) VALUES (:nombre,:apellido,:edad,:email, :password)";
+  $sql = "INSERT INTO usuarios (nombre,apellido,edad,email, password, nivel) VALUES (:nombre,:apellido,:edad,:email, :password, :nivel)";
   $stmt = $conexion->prepare($sql);
   $stmt->bindParam(':nombre', $_POST['nombre']);
   $stmt->bindParam(':apellido', $_POST['apellido']);
@@ -18,6 +18,7 @@ if (
   $stmt->bindParam(':email', $_POST['email']);
   $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
   $stmt->bindParam(':password', $password);
+  $stmt->bindParam(':nivel', $_POST['nivel']);
 
   // if ($_POST["password"] === $_POST["confirm_password"]) {
   //   $colorAlert = 'alert-success';
@@ -39,9 +40,6 @@ if (
 
 <?php require 'partials/header.php' ?> 
 <?php require 'partials/navbar.php' ?>
-
-<form action="signup.php" method="POST">
-</form>
 
 
 <div class="container d-flex justify-content-center text-center m-5">
@@ -78,8 +76,16 @@ if (
           </div>
 
           <div class="mb-3">
-            <input name="confirm_password" type="password" class="form-control" placeholder="Digite volver su contresñaq" required>
+            <input name="confirm_password" type="password" class="form-control" placeholder="Digite volver su contraseña" required>
           </div>
+
+          <div class="mb-3">
+          <div class="input-group">
+              <input class="form-check-input mt-0" name="nivel" type="radio" value="1">
+            Desde un nivel 1
+          </div>
+        </div>
+         
 
           <div class="mb-3">
             <input type="submit" class="btn btn-primary btn-block w-100" value="Registro">

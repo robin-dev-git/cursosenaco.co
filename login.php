@@ -9,7 +9,7 @@ $titulo = 'Login';
 
 $colorAlert = '';
 if (!empty($_POST['email']) && !empty($_POST['password'])) {
-  $records = $conexion->prepare('SELECT id, email, password FROM usuarios WHERE email = :email');
+  $records = $conexion->prepare('SELECT id, email, password,nivel FROM usuarios WHERE email = :email');
   $records->bindParam(':email', $_POST['email']);
   $records->execute();
   $results = $records->fetch(PDO::FETCH_ASSOC);
@@ -18,6 +18,7 @@ if (!empty($_POST['email']) && !empty($_POST['password'])) {
 
   if (count($results) > 0 && password_verify($_POST['password'], $results['password'])) {
     $_SESSION['user_id'] = $results['id'];
+    $_SESSION['nivel'] = $results['nivel'];
     header("Location: /cursosenaco.co");
   } else {
     $colorAlert = 'alert-warning';

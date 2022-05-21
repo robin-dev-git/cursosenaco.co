@@ -65,6 +65,13 @@ if ($_POST) {
     if ($c >= 3) {
         $colorAlert = 'alert-success';
         $message = '<strong>Felicitaciones,</strong> preguntas correctas ' . $c;
+        session_start();
+        $_SESSION['nivel']=$_SESSION['nivel']+1;
+
+            $sql = "UPDATE usuarios SET  nivel = (select nivel from usuarios WHERE id = :id )+1  WHERE id = :id";
+            $stmt = $conexion->prepare($sql);
+            $stmt->bindParam(':id', $_SESSION['user_id']);
+            $stmt->execute();
     } else {
         $colorAlert = 'alert-danger';
         $message = '<strong>Falllaste,</strong> preguntas incorrectas ' . $i;
@@ -217,7 +224,9 @@ if ($_POST) {
             </ol>
         </div>
         <div class="mb-5 pt-3">
-            <input type="submit" value="Verificar" class="btn btn-primary">
+            <!-- <input type="submit" value="Verificar" class="btn btn-primary"> -->
+            <button type="submit" class="btn btn-primary" name="nivel" value="3">Verfificar</button>
+
         </div>
     </form>
     <hr />
